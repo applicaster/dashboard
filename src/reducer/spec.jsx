@@ -1,6 +1,6 @@
 import test from 'tape';
 import {Map} from 'immutable';
-import reducer from './';
+import reducer, {HEARTBEAT_STATUSES} from './';
 
 test('reducer', (assert) => {
   const initalState = Map();
@@ -8,10 +8,15 @@ test('reducer', (assert) => {
     type: 'HEARTBEAT',
   };
   const nextState = reducer(initalState, action);
-  assert.deepEqual(
-    nextState.toJS(),
-    {heartbeat: 'OK'},
-    'Should return "OK" when dispacthing HEARTBEAT action.'
+  assert.equal(
+    nextState.toJS().heartbeat,
+    HEARTBEAT_STATUSES.ERROR,
+    'Should return heartbeat "ERROR" by default if no middleware is set.'
+  );
+  assert.equal(
+    nextState.toJS().initialized,
+    true,
+    'Should initialize connection state.'
   );
   assert.end();
 });
