@@ -2,11 +2,14 @@ import React from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import firebaseMiddleware from './middleware/firebase';
 import reducer from './reducer';
 import App from './components/App';
+import Firebase from 'firebase';
 
 const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware
+  thunkMiddleware,
+  firebaseMiddleware(Firebase, window.FIREBASE_APP)
 )(createStore);
 
 const actions = {
@@ -20,6 +23,7 @@ const actions = {
 function mapStateToProps(state) {
   return {
     heartbeat: state.get('heartbeat'),
+    initialized: state.get('initialized'),
   };
 }
 
