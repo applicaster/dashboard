@@ -11,7 +11,12 @@ module.exports = {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'react-hot!babel'
-    }, {
+    }, 
+    {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+    },
+    {
       test: /\.css$/,
       loader: 'style!css!autoprefixer?browsers=last 2 versions'
     }]
