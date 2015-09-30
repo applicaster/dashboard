@@ -23,10 +23,16 @@ const reduxHeartbeat = (state, status) => {
   return state.set('heartbeat', newStatus || status).set('initialized', true);
 };
 
+const getBoxList = (state, boxList = []) => {
+  return state.set('boxList', boxList);
+};
+
 export default function(state = Map(), action) {
   switch (action.type) {
   case 'HEARTBEAT':
     return reduxHeartbeat(state, action.status);
+  case 'GETBOXLIST':
+    return getBoxList(state, action.boxList);
   default:
     return state;
   }
