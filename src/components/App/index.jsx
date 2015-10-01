@@ -43,13 +43,14 @@ export default React.createClass({
           className="row"
           style={styles.content}>
           {map(this.props.boxList, (box, index) => {
+            const imageURL = (box.get('image')) ? box.get('image')._url : '';
             return (
               <Box
                 key={index}
                 title={box.get('title')}
                 desc={box.get('description')}
                 href={box.get('linkUrl')}
-                imgSrc={box.get('image')._url}/>
+                imgSrc={imageURL}/>
             );
           })}
         </div>
