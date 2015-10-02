@@ -6,7 +6,12 @@
 </head>
 <body>
   <div id="app"></div>
-  <script>window.FIREBASE_APP = '<%= FIREBASE_APP %>'</script>
+  <script>
+    window.dashboardSettings = {
+      'X-Parse-Application-Id': '<%= X_PARSE_APPLICATION_ID %>',
+      'X-Parse-REST-API-Key': '<%= X_PARSE_REST_API_KEY %>'
+    };
+  </script>
   <script src="bundle.js"></script>
 </body>
 </html>

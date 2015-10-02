@@ -8,6 +8,7 @@ import reducer from './reducer';
 import App from './components/App';
 import Firebase from 'firebase';
 import Parse from 'parse';
+import axios from 'axios';
 
 require('../node_modules/flexboxgrid/dist/flexboxgrid.css');
 
@@ -19,7 +20,7 @@ Parse.initialize(
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
   firebaseMiddleware(Firebase, window.FIREBASE_APP),
-  parseMiddleware(Parse)
+  parseMiddleware(axios, window)
 )(createStore);
 
 const actions = {

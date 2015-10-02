@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.7.0",
+    "blue-tape": "^0.1.10",
     "dotenv": "^1.2.0",
     "fbjs": "^0.2.1",
     "firebase": "^2.3.0",
