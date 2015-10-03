@@ -1,7 +1,9 @@
 import test from 'tape';
 import React from 'react/addons';
 import sd from 'skin-deep';
-import Box from './';
+import BoxRow from './';
+
+const Box = BoxRow.DecoratedComponent;
 
 const shallowRender = (component, props) => {
   const tree = sd.shallowRender(React.createElement(Box, props));
@@ -14,7 +16,10 @@ const shallowRender = (component, props) => {
 test('Box Component', (assert) => {
   const {vdom} = shallowRender(
     Box,
-    {href: 'http://example.com'}
+    {
+      info: {linkUrl: 'http://example.com'},
+      connectDragSource: (component) =>  {return component;},
+    }
   );
   const href = 'http://example.com';
   assert.equal(
