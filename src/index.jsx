@@ -37,6 +37,12 @@ const actions = {
       boxId: boxId,
     };
   },
+  toggleEditMode(toggleFlag) {
+    return {
+      type: 'TOGGLE_EDIT_MODE',
+      toggleFlag: toggleFlag,
+    };
+  },
 };
 
 function mapStateToProps(state) {
@@ -44,6 +50,7 @@ function mapStateToProps(state) {
     heartbeat: state.get('heartbeat'),
     initialized: state.get('initialized'),
     boxList: state.get('boxList'),
+    inEditMode: state.get('inEditMode'),
   };
 }
 

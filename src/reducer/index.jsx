@@ -31,6 +31,10 @@ const handleDrop = (state, squareIndex, boxId, boxList) => {
   return state.set('boxList', boxList);
 };
 
+const toggleEditMode = (state, toggleFlag) => {
+  return state.set('inEditMode', toggleFlag);
+};
+
 export default function(state = Map(), action) {
   switch (action.type) {
   case 'HEARTBEAT':
@@ -39,6 +43,8 @@ export default function(state = Map(), action) {
     return getBoxList(state, action.boxList);
   case 'HANDLE_DROP':
     return handleDrop(state, action.squareIndex, action.boxId, action.boxList);
+  case 'TOGGLE_EDIT_MODE':
+    return toggleEditMode(state, action.toggleFlag);
   default:
     return state;
   }
