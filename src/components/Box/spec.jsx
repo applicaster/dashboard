@@ -19,16 +19,18 @@ test('Box Component', (assert) => {
     {
       info: {linkUrl: 'http://example.com'},
       connectDragSource: (component) =>  {return component;},
+      inEditMode: false,
     }
   );
+  const aElement = vdom.props.children._store.props.children[1];
   const href = 'http://example.com';
   assert.equal(
-    vdom.props.children._store.props.children.type,
+    aElement.type,
     'a',
     'Should be linkable.'
   );
   assert.equal(
-    vdom.props.children._store.props.children._store.props.href,
+    aElement._store.props.href,
     href,
     'Should link to given href prop URL.'
   );

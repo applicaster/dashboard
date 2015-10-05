@@ -11,6 +11,7 @@ const Grid = React.createClass({
   propTypes: {
     boxList: React.PropTypes.array,
     handleDrop: React.PropTypes.func,
+    inEditMode: React.PropTypes.bool,
   },
 
   _renderSquare(boxList, index) {
@@ -19,6 +20,7 @@ const Grid = React.createClass({
     const myBox = (box) ?
        <Box
           key={index}
+          inEditMode={this.props.inEditMode}
           info={box}
        /> :
        <div>{index}</div>;

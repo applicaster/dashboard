@@ -5,26 +5,14 @@ import Header from '../Header';
 
 injectTapEventPlugin();
 
-const styles = {
-  app: {
-    backgroundColor: '#ccc',
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    left: 0,
-    bottom: 0,
-    overflowY: 'auto',
-  },
-  container: {
-    marginTop: 20,
-  },
-};
 
 export default React.createClass({
   propTypes: {
     getBoxsListAction: React.PropTypes.func,
     handleDrop: React.PropTypes.func,
     boxList: React.PropTypes.array,
+    inEditMode: React.PropTypes.bool,
+    toggleEditMode: React.PropTypes.func,
   },
 
   componentDidMount() {
@@ -32,12 +20,30 @@ export default React.createClass({
   },
 
   render() {
+    const { toggleEditMode, handleDrop, inEditMode, boxList } = this.props;
+    const styles = {
+      app: {
+        transition: 'background-color 0.5s ease',
+        backgroundColor: (inEditMode) ? '#444' : '#ccc',
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        overflowY: 'auto',
+      },
+      container: {
+        marginTop: 20,
+      },
+    };
     return (
       <div style={styles.app}>
-        <Header/>
+        <Header
+          toggleEditMode={toggleEditMode} />
         <Grid
-          handleDrop={this.props.handleDrop}
-          boxList={this.props.boxList}/>
+          handleDrop={handleDrop}
+          inEditMode={inEditMode}
+          boxList={boxList}/>
       </div>
     );
   },

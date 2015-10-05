@@ -17,6 +17,15 @@ const styles = {
 };
 
 export default React.createClass({
+
+  propTypes: {
+    toggleEditMode: React.PropTypes.func,
+  },
+
+  _onToggle(event, toogle) {
+    this.props.toggleEditMode(toogle);
+  },
+
   render() {
     return (
       <AppBar
@@ -29,10 +38,10 @@ export default React.createClass({
         }
         iconElementRight={
           <Toggle
-          onToggle={this._onToggle}
-          ref="isToggeled"
-          name="toggleName1"/>
-        }/>
+            onToggle={this._onToggle}
+            ref="isToggeled"
+            name="toggleName1"/>
+          }/>
     );
   },
 });
