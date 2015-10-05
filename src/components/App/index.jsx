@@ -1,7 +1,6 @@
 import React from 'react';
-import map from 'lodash/collection/map';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Box from '../Box';
+import Grid from '../Grid';
 import Header from '../Header';
 
 injectTapEventPlugin();
@@ -16,10 +15,6 @@ const styles = {
     bottom: 0,
     overflowY: 'auto',
   },
-  content: {
-    maxWidth: 1100,
-    margin: '10px auto 0 auto',
-  },
   container: {
     marginTop: 20,
   },
@@ -28,6 +23,7 @@ const styles = {
 export default React.createClass({
   propTypes: {
     getBoxsListAction: React.PropTypes.func,
+    handleDrop: React.PropTypes.func,
     boxList: React.PropTypes.array,
   },
 
@@ -39,21 +35,9 @@ export default React.createClass({
     return (
       <div style={styles.app}>
         <Header/>
-        <div
-          className="row"
-          style={styles.content}>
-          {map(this.props.boxList, (box, index) => {
-            const imageURL = (box.image) ? box.image.url : '';
-            return (
-              <Box
-                key={index}
-                title={box.title}
-                desc={box.description}
-                href={box.linkUrl}
-                imgSrc={imageURL}/>
-            );
-          })}
-        </div>
+        <Grid
+          handleDrop={this.props.handleDrop}
+          boxList={this.props.boxList}/>
       </div>
     );
   },

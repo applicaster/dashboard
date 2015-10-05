@@ -4,23 +4,41 @@ import {
   CardTitle,
   CardMedia,
  } from 'material-ui';
+import { DragSource } from 'react-dnd';
 
-export default React.createClass({
+const boxSource = {
+  beginDrag(props) {
+    return {id: props.info.objectId};
+  },
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  };
+}
+
+
+const Box = React.createClass({
 
   propTypes: {
-    title: React.PropTypes.string,
-    desc: React.PropTypes.string,
-    href: React.PropTypes.string,
-    imgSrc: React.PropTypes.string,
+    info: React.PropTypes.object,
+    connectDragSource: React.PropTypes.func,
   },
 
   mixins: [React.addons.PureRenderMixin],
 
   render() {
+    const {
+      linkUrl,
+      title,
+      description,
+      image,
+    } = this.props.info;
+    const imageURL = (image) ? image.url : '';
+    const connectDragSource = this.props.connectDragSource;
     const styles = {
-      container: {
-        marginTop: 20,
-      },
       a: {
         textDecoration: 'none',
       },
@@ -29,22 +47,21 @@ export default React.createClass({
       },
     };
 
-    return (
-      <div
-        style={styles.container}
-        className="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+    return connectDragSource(
+      <div>
         <Card>
           <a
             style={styles.a}
-            href={this.props.href}
+            href={linkUrl}
             target="_blank">
             <CardMedia>
-              <img src={this.props.imgSrc}/>
+              <img
+                src={imageURL}/>
             </CardMedia>
             <CardTitle
               style={styles.cardTitle}
-              title={this.props.title}
-              subtitle={this.props.desc}/>
+              title={title}
+              subtitle={description}/>
           </a>
         </Card>
       </div>
@@ -52,3 +69,4 @@ export default React.createClass({
   },
 });
 
+export default DragSource('BOX', boxSource, collect)(Box);

@@ -2,23 +2,19 @@ import React from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import boxOrder from './middleware/boxOrder';
 import firebaseMiddleware from './middleware/firebase';
 import parseMiddleware from './middleware/parse';
 import reducer from './reducer';
 import App from './components/App';
 import Firebase from 'firebase';
-import Parse from 'parse';
 import axios from 'axios';
 
 require('../node_modules/flexboxgrid/dist/flexboxgrid.css');
 
-Parse.initialize(
-  'IabQYOcnNrKwubDzb0iR6PwebMe74IXDQNw6MpDG',
-  '3xTWMkRMQUUcC4brbov49iiemWHf34njY83IWWYO'
-);
-
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
+  boxOrder,
   firebaseMiddleware(Firebase, window.FIREBASE_APP),
   parseMiddleware(axios, window)
 )(createStore);
@@ -32,6 +28,13 @@ const actions = {
   getBoxsListAction() {
     return {
       type: 'GETBOXLIST',
+    };
+  },
+  handleDrop(squareIndex, boxId) {
+    return {
+      type: 'HANDLE_DROP',
+      squareIndex: squareIndex,
+      boxId: boxId,
     };
   },
 };

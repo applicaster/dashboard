@@ -27,12 +27,18 @@ const getBoxList = (state, boxList = []) => {
   return state.set('boxList', boxList);
 };
 
+const handleDrop = (state, squareIndex, boxId, boxList) => {
+  return state.set('boxList', boxList);
+};
+
 export default function(state = Map(), action) {
   switch (action.type) {
   case 'HEARTBEAT':
     return reduxHeartbeat(state, action.status);
   case 'GETBOXLIST':
     return getBoxList(state, action.boxList);
+  case 'HANDLE_DROP':
+    return handleDrop(state, action.squareIndex, action.boxId, action.boxList);
   default:
     return state;
   }
