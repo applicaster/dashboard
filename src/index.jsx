@@ -2,39 +2,13 @@ import React from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import firebaseMiddleware from './middleware/firebase';
-import parseMiddleware from './middleware/parse';
+import * as actionCreators from './actions/index.js';
 import reducer from './reducer';
 import App from './components/App';
-import Firebase from 'firebase';
-import Parse from 'parse';
-import axios from 'axios';
 
 require('../node_modules/flexboxgrid/dist/flexboxgrid.css');
 
-Parse.initialize(
-  'IabQYOcnNrKwubDzb0iR6PwebMe74IXDQNw6MpDG',
-  '3xTWMkRMQUUcC4brbov49iiemWHf34njY83IWWYO'
-);
-
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  firebaseMiddleware(Firebase, window.FIREBASE_APP),
-  parseMiddleware(axios, window)
-)(createStore);
-
-const actions = {
-  reduxHeartbeatCB() {
-    return {
-      type: 'HEARTBEAT',
-    };
-  },
-  getBoxsListAction() {
-    return {
-      type: 'GETBOXLIST',
-    };
-  },
-};
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
 function mapStateToProps(state) {
   return {
@@ -44,8 +18,25 @@ function mapStateToProps(state) {
   };
 }
 
-const AppConnector = connect(mapStateToProps, actions)(App);
+const AppConnector = connect(mapStateToProps, actionCreators)(App);
 const store = createStoreWithMiddleware(reducer);
+
+const boxs = [
+  {
+    title: 'Card',
+    description: 'best description ever',
+    linkUrl: 'http://google.com',
+    image: { url: 'https://avatars1.githubusercontent.com/u/6271277?v=3&s=460'},
+  },
+  {
+    title: 'Card',
+    description: 'best description ever',
+    linkUrl: 'http://google.com',
+    image: { url: 'http://www.tervela.com/stuff/contentmgr/files/0/81724e5c90c948f4ae07e8c33e662194/files/hadoop_fast.png'},
+  },
+];
+
+store.dispatch(actionCreators.getBoxsListAction(boxs));
 
 React.render(
   <Provider store={store}>
@@ -53,3 +44,4 @@ React.render(
   </Provider>,
   document.getElementById('app')
 );
+

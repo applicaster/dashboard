@@ -31,9 +31,9 @@ export default React.createClass({
     boxList: React.PropTypes.array,
   },
 
-  componentDidMount() {
-    this.props.getBoxsListAction();
-  },
+  // componentDidMount() {
+    // this.props.getBoxsListAction();
+  // },
 
   render() {
     return (
